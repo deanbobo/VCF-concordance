@@ -61,16 +61,12 @@ if args.FPreport:
 	FPfile = open(ngs_file+'.'+sample+'.FP.report.txt','w')
 	FPfile.write("#Sample\tChrom\tPosition\tFP_count\tCoverage\n")
 
-def FNout(sample, chrom, position, FNcount, coverage):
-	if coverage == '' or coverage is None:
-		coverage='NA'
-	FNfile.write(sample + "\t" + str(chrom) + "\t" + str(position) + "\t" + str(FNcount) + "\t" + str(coverage) + "\n")
+def FNout(sample, chrom, position, FNcount):
+	FNfile.write(sample + "\t" + str(chrom) + "\t" + str(position) + "\t" + str(FNcount)  + "\n")
 	
 	
-def FPout(sample, chrom, position, FPcount, coverage):
-	if coverage == '' or coverage is None:
-		coverage='NA'
-	FPfile.write(sample + "\t" + str(chrom) + "\t" + str(position) + "\t" + str(FPcount) + "\t" + str(coverage) + "\n")
+def FPout(sample, chrom, position, FPcount):
+	FPfile.write(sample + "\t" + str(chrom) + "\t" + str(position) + "\t" + str(FPcount) + "\n")
 	
 	
 # def FNchecker(truth_ref, truth_genotypes, ngs_genotype):
@@ -228,7 +224,7 @@ for region in BedTool(bedfile):
 						if args.verbose:
 							print("FN: TRUTH_INFO: truth_chr:", truth_chr, "truth_pos:", truth_pos, "truth_ref:", truth_ref, "truth_alt:", truth_alt, "truth_state:", truth_state, "NGS_INFO: genotype_not_called")
 						if args.FNreport:
-							FNout(sample,truth_chr,truth_pos,truth_state,ngs_depth)
+							FNout(sample,truth_chr,truth_pos,truth_state)
 					
 					else:  #both variants are present in vcf			
 						
@@ -246,7 +242,7 @@ for region in BedTool(bedfile):
 								print("FN: TRUTH_INFO: truth_chr:", truth_chr, "truth_pos:", truth_pos, "truth_ref:", truth_ref, "truth_alt:", truth_alt, "truth_state:", truth_state, "NGS_INFO: ngs_chr", ngs_chr, "ngs_pos:", ngs_pos, "ngs_alt:", ngs_alt, "ngs_state:", ngs_state)
 
 							if args.FNreport:
-								FNout(sample,truth_chr,truth_pos,fn_checker_sum,ngs_depth)
+								FNout(sample,truth_chr,truth_pos,fn_checker_sum)
 									
 				else: #keep searching if not find a matched alt allele. This goes until out of NGS variants in fetch iterable.
 					continue
